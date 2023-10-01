@@ -44,7 +44,7 @@ You can also download the [IIFE bundle](https://raw.githubusercontent.com/juanel
 ## Usage example
 
 ```typescript
-const key = await aesGcm.generateKey(bitLength, true)
+const key = await aesGcm.generateKey(256, false) // create a non-extractable random key of 256 bits
 
 const mStr = 'my-plaintext-msg'
 const m = (new TextEncoder()).encode(mStr) // convert to buffer
