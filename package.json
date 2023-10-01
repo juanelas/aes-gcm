@@ -16,6 +16,9 @@
     "url": "https://github.com/juanelas"
   },
   "repository": "github:juanelas/aes-gcm",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "main": "./dist/cjs/index.node.js",
   "browser": "./dist/esm/index.browser.js",
   "types": "./dist/index.d.ts",
