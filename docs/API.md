@@ -1,4 +1,4 @@
-# @juanelas/aes-gcm - v1.0.0
+# @juanelas/aes-gcm - v1.0.1
 
 ## Table of contents
 

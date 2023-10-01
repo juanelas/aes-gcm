@@ -1,6 +1,6 @@
 {
   "name": "@juanelas/aes-gcm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Easy to use aes-gcm cipher for node.js and browser",
   "keywords": [
     "crypto",
