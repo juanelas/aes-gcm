@@ -16,7 +16,7 @@ async function main () {
   // Generate API doc with typedoc
   await typedoc()
 
-  // Translate relaitive links to project's root
+  // Translate relative links to project's root
   replaceRelativeLinks()
 
   // Let us replace variables and badges

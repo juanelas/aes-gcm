@@ -7,41 +7,29 @@
 
 {{PKG_DESCRIPTION}}
 
-## Install and use
+In order to facilitate ciphertext exchange (encrypted data and IV), the generated ciphertext object (obtained after encrypting) can be JSON.stringified. The decrypt method accept as well the JSON version of the ciphertext.
 
-`{{PKG_NAME}}` can be imported to your project with `npm`:
+## Install
 
 ```console
 npm install {{PKG_NAME}}
 ```
 
-Then either require (Node.js CJS):
+## Usage
+
+Either require (Node.js CJS):
 
 ```javascript
 const {{PKG_CAMELCASE}} = require('{{PKG_NAME}}')
 ```
 
-or import (JavaScript ES module):
+or import (TypeScript or JavaScript ES module):
 
 ```javascript
 import * as {{PKG_CAMELCASE}} from '{{PKG_NAME}}'
 ```
 
-> The appropriate version for browser or node should be automatically chosen when importing. However, if your bundler does not import the appropriate module version (node esm, node cjs or browser esm), you can force it to use a specific one by just importing one of the followings:
->
-> - `{{PKG_NAME}}/dist/cjs/index.node`: for Node.js CJS module
-> - `{{PKG_NAME}}/dist/esm/index.node`: for Node.js ESM module
-> - `{{PKG_NAME}}/dist/esm/index.browser`: for browser ESM module
->
-> If you are coding TypeScript, types will not be automatically detected when using the specific versions. You can easily get the types in by creating adding to a types declaration file (`.d.ts`) the following line:
->
-> ```typescript
-> declare module '{{PKG_NAME}}/dist/esm/index.browser' // use the specific file you were importing
-> ```
-
-You can also download the {{IIFE_BUNDLE}}, the {{ESM_BUNDLE}} or the {{UMD_BUNDLE}} and manually add it to your project, or, if you have already installed `{{PKG_NAME}}` in your project, just get the bundles from `node_modules/{{PKG_NAME}}/dist/bundles/`.
-
-## Usage example
+An example code for encryption and decryption could be:
 
 ```typescript
 const key = await aesGcm.generateKey(256, false) // create a non-extractable random key of 256 bits
@@ -49,10 +37,23 @@ const key = await aesGcm.generateKey(256, false) // create a non-extractable ran
 const mStr = 'my-plaintext-msg'
 const m = (new TextEncoder()).encode(mStr) // convert to buffer
 
+// encrypt m with key
 const c = await aesGcm.encrypt(m, key)
 
+// decrypt c with key
 const d = await aesGcm.decrypt(c, key)
 const dStr = (new TextDecoder()).decode(d) // convert back to utf-8 string 'my-plaintext-msg'
+
+// to ease ciphertext exchange, you could JSON.stringify it
+const cStr = JSON.stringify(c)
+
+ // The JSON.stringified ciphertext can as well be directly decrypted
+const d = await aesGcm.decrypt(cStr, key)
+const dStr = (new TextDecoder()).decode(d) // convert back to utf-8 string 'my-plaintext-msg'
+
+// If needed, you could recover the Ciphertext object (with iv and encrypted) from cStr
+const c2 = aesGcm.Ciphertext.fromJSON(cStr)
+
 ```
 
 ## API reference documentation
